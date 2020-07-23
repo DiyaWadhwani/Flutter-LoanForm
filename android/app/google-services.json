@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "540663655295",
+    "firebase_url": "https://loan-form-5d8a9.firebaseio.com",
+    "project_id": "loan-form-5d8a9",
+    "storage_bucket": "loan-form-5d8a9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540663655295:android:02bb5471ec00e8efe9484a",
+        "android_client_info": {
+          "package_name": "com.example.loan_form"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540663655295-86s0othl39hre314826e9kj4dpln0ku7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbA60oneDyuYM_OaNR0KBUq0pz4-mV2jc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540663655295-86s0othl39hre314826e9kj4dpln0ku7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
