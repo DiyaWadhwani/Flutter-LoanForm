@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // ignore: must_be_immutable
 class Loan extends StatefulWidget {
   DataModel data;
+  Loan({this.data});
   _LoanState createState() => _LoanState(data: data);
 }
 
@@ -17,8 +18,8 @@ class _LoanState extends State<Loan> {
   _LoanState({this.data});
   List<String> _amount = ['Rs.2000', 'Rs.3000', 'Rs.4000', 'Rs.5000'];
   List<String> _time = ['15 days', '20 days'];
-  String _selectedAmount = 'Select an option';
-  String _selectedTime = 'Select an option';
+  var _selectedAmount;
+  var _selectedTime;
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +147,7 @@ class _LoanState extends State<Loan> {
                       borderRadius: new BorderRadius.circular(50.0),
                     ),
                     color: Colors.black,
+                    splashColor: Colors.yellow,
                     child: Text(
                       'Next',
                       style: TextStyle(
@@ -155,21 +157,25 @@ class _LoanState extends State<Loan> {
                       ),
                     ),
                     onPressed: () async {
-                      data.loanamount = _selectedAmount;
-                      data.loantenure = _selectedTime;
-                      await db.collection("ApplicantDetails").add({
-                        'Mobile Number': data.mobnum,
-                        'Whatsapp Number': data.wanum,
-                        'Full Name': data.firstname,
-                        'Father/Husbands Name': data.secondname,
-                        'Email Address': data.emailaddr,
-                        'Permanent Address': data.permaddr,
-                        'Current Address': data.curraddr,
-                        'Loan Amount': data.loanamount,
-                        'Loan Tenure': data.loantenure
-                      });
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Terms()));
+                      if (_selectedAmount == null || _selectedTime == null) {
+                        showAlertDialog(context);
+                      } else {
+                        data.loanamount = _selectedAmount;
+                        data.loantenure = _selectedTime;
+                        await db.collection("ApplicantDetails").add({
+                          'Mobile Number': data.mobnum,
+                          'Whatsapp Number': data.wanum,
+                          'Full Name': data.firstname,
+                          'Father/Husbands Name': data.secondname,
+                          'Email Address': data.emailaddr,
+                          'Permanent Address': data.permaddr,
+                          'Current Address': data.curraddr,
+                          'Loan Amount': data.loanamount,
+                          'Loan Tenure': data.loantenure
+                        });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Terms()));
+                      }
                     }),
               ),
             ),
@@ -178,4 +184,30 @@ class _LoanState extends State<Loan> {
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+  Widget okButton = FlatButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+
+  // Create AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Error"),
+    content: Text('Please select both Amount and Tenure before procedding'),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

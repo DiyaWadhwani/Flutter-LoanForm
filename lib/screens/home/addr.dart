@@ -6,6 +6,7 @@ import 'datamodel.dart';
 // ignore: must_be_immutable
 class Address extends StatefulWidget {
   DataModel data;
+  Address({this.data});
   _AddressState createState() => _AddressState(data: data);
 }
 
@@ -139,6 +140,7 @@ class _AddressState extends State<Address> {
                         borderRadius: new BorderRadius.circular(50.0),
                       ),
                       color: Colors.black,
+                      splashColor: Colors.yellow,
                       child: Text(
                         'Next',
                         style: TextStyle(

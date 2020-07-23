@@ -143,6 +143,7 @@ class _TermsState extends State<Terms> {
                       borderRadius: new BorderRadius.circular(50.0),
                     ),
                     color: Colors.black,
+                    splashColor: Colors.yellow,
                     child: Text(
                       'SUBMIT',
                       style: TextStyle(

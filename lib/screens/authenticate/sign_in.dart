@@ -42,6 +42,7 @@ class _SignInState extends State<SignIn> {
                 minWidth: 230.0,
                 child: RaisedButton(
                     color: Colors.black,
+                    splashColor: Colors.yellow,
                     child: Text(
                       'Start',
                       style: TextStyle(
