@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loan_form/screens/home/name.dart';
+import 'datamodel.dart';
 
 class Phnum extends StatefulWidget {
   _PhnumState createState() => _PhnumState();
 }
 
 class _PhnumState extends State<Phnum> {
+  final data = new DataModel();
   var formkey = GlobalKey<FormState>();
   var mobnum;
   var wanum;
@@ -126,11 +128,12 @@ class _PhnumState extends State<Phnum> {
                       ),
                       onPressed: () async {
                         if (formkey.currentState.validate()) {
+                          data.mobnum = mobnum;
+                          data.wanum = wanum;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      Name(mobnum: mobnum, wanum: wanum)));
+                                  builder: (context) => Name(data: data)));
                         } else {
                           setState(() {
                             error = 'Please enter valid details';

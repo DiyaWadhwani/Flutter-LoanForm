@@ -5,65 +5,12 @@ import 'package:loan_form/screens/services/auth.dart';
 
 // ignore: must_be_immutable
 class Terms extends StatefulWidget {
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
-  var emailaddr;
-  var permaddr;
-  var curraddr;
-  var loanamount;
-  var loantenure;
-  Terms(
-      {this.mobnum,
-      this.wanum,
-      this.firstname,
-      this.secondname,
-      this.emailaddr,
-      this.permaddr,
-      this.curraddr,
-      this.loanamount,
-      this.loantenure});
-  _TermsState createState() => _TermsState(
-        mobnum: mobnum,
-        wanum: wanum,
-        firstname: firstname,
-        secondname: secondname,
-        emailaddr: emailaddr,
-        permaddr: permaddr,
-        curraddr: curraddr,
-        loanamount: loanamount,
-        loantenure: loantenure,
-      );
+  _TermsState createState() => _TermsState();
 }
 
 class _TermsState extends State<Terms> {
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
-  var emailaddr;
-  var permaddr;
-  var curraddr;
-  var loanamount;
-  var loantenure;
-  _TermsState(
-      {this.mobnum,
-      this.wanum,
-      this.firstname,
-      this.secondname,
-      this.emailaddr,
-      this.permaddr,
-      this.curraddr,
-      this.loanamount,
-      this.loantenure});
   final AuthService _auth = AuthService();
   bool checkedValue = false;
-
-  // // ignore: must_call_super
-  // Future<void> initState() async {
-  //   return checkedValue = false;
-  // }
 
   @override
   Widget build(BuildContext context) {

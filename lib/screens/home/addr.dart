@@ -1,32 +1,21 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:loan_form/screens/home/loan.dart';
-//import 'package:flutter/services.dart';
+import 'datamodel.dart';
 
 // ignore: must_be_immutable
 class Address extends StatefulWidget {
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
-  Address({this.mobnum, this.wanum, this.firstname, this.secondname});
-  _AddressState createState() => _AddressState(
-      mobnum: mobnum,
-      wanum: wanum,
-      firstname: firstname,
-      secondname: secondname);
+  DataModel data;
+  _AddressState createState() => _AddressState(data: data);
 }
 
 class _AddressState extends State<Address> {
   var formkey = GlobalKey<FormState>();
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
   var emailaddr;
   var permaddr;
   var curraddr;
-  _AddressState({this.mobnum, this.wanum, this.firstname, this.secondname});
+  DataModel data;
+  _AddressState({this.data});
   @override
   Widget build(BuildContext context) {
     String error = 'Please fill this in';
@@ -160,17 +149,13 @@ class _AddressState extends State<Address> {
                       ),
                       onPressed: () async {
                         if (formkey.currentState.validate()) {
+                          data.emailaddr = emailaddr;
+                          data.permaddr = permaddr;
+                          data.curraddr = curraddr;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Loan(
-                                      mobnum: mobnum,
-                                      wanum: wanum,
-                                      firstname: firstname,
-                                      secondname: secondname,
-                                      emailaddr: emailaddr,
-                                      permaddr: permaddr,
-                                      curraddr: curraddr)));
+                                  builder: (context) => Loan(data: data)));
                         } else {
                           setState(() {
                             error = 'Please enter valid details';

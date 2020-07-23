@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
 import 'package:loan_form/screens/home/addr.dart';
+import 'datamodel.dart';
 
-// ignore: must_be_immutable
 class Name extends StatefulWidget {
-  var mobnum;
-  var wanum;
-  Name({this.mobnum, this.wanum});
-  _NameState createState() => _NameState(mobnum: mobnum, wanum: wanum);
+  DataModel data;
+  _NameState createState() => _NameState(data: data);
 }
 
 class _NameState extends State<Name> {
   var formkey = GlobalKey<FormState>();
   var firstname;
   var secondname;
-  var mobnum;
-  var wanum;
-  _NameState({this.mobnum, this.wanum});
+  DataModel data;
+  _NameState({this.data});
   @override
   Widget build(BuildContext context) {
     String error = 'Please fill this in';
@@ -115,14 +111,12 @@ class _NameState extends State<Name> {
                       ),
                       onPressed: () async {
                         if (formkey.currentState.validate()) {
+                          data.firstname = firstname;
+                          data.secondname = secondname;
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Address(
-                                      mobnum: mobnum,
-                                      wanum: wanum,
-                                      firstname: firstname,
-                                      secondname: secondname)));
+                                  builder: (context) => Address(data: data)));
                         } else {
                           setState(() {
                             error = 'Please enter valid details';

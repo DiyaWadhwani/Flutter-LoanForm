@@ -1,51 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:loan_form/screens/home/terms.dart';
+import 'datamodel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore: must_be_immutable
 class Loan extends StatefulWidget {
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
-  var emailaddr;
-  var permaddr;
-  var curraddr;
-  Loan(
-      {this.mobnum,
-      this.wanum,
-      this.firstname,
-      this.secondname,
-      this.emailaddr,
-      this.permaddr,
-      this.curraddr});
-  _LoanState createState() => _LoanState(
-      mobnum: mobnum,
-      wanum: wanum,
-      firstname: firstname,
-      secondname: secondname,
-      emailaddr: emailaddr,
-      permaddr: permaddr,
-      curraddr: curraddr);
+  DataModel data;
+  _LoanState createState() => _LoanState(data: data);
 }
 
 class _LoanState extends State<Loan> {
-  var mobnum;
-  var wanum;
-  var firstname;
-  var secondname;
-  var emailaddr;
-  var permaddr;
-  var curraddr;
+  final db = Firestore.instance;
   var loanamount;
   var loantenure;
-  _LoanState(
-      {this.mobnum,
-      this.wanum,
-      this.firstname,
-      this.secondname,
-      this.emailaddr,
-      this.permaddr,
-      this.curraddr});
+  DataModel data;
+  _LoanState({this.data});
   List<String> _amount = ['Rs.2000', 'Rs.3000', 'Rs.4000', 'Rs.5000'];
   List<String> _time = ['15 days', '20 days'];
   String _selectedAmount = 'Select an option';
@@ -186,17 +155,21 @@ class _LoanState extends State<Loan> {
                       ),
                     ),
                     onPressed: () async {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Terms(
-                                  mobnum: mobnum,
-                                  wanum: wanum,
-                                  firstname: firstname,
-                                  secondname: secondname,
-                                  emailaddr: emailaddr,
-                                  permaddr: permaddr,
-                                  curraddr: curraddr)));
+                      data.loanamount = _selectedAmount;
+                      data.loantenure = _selectedTime;
+                      await db.collection("ApplicantDetails").add({
+                        'Mobile Number': data.mobnum,
+                        'Whatsapp Number': data.wanum,
+                        'Full Name': data.firstname,
+                        'Father/Husbands Name': data.secondname,
+                        'Email Address': data.emailaddr,
+                        'Permanent Address': data.permaddr,
+                        'Current Address': data.curraddr,
+                        'Loan Amount': data.loanamount,
+                        'Loan Tenure': data.loantenure
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Terms()));
                     }),
               ),
             ),
